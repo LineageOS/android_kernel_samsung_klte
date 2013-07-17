@@ -1395,6 +1395,14 @@ static int msm_cpp_cfg(struct cpp_device *cpp_dev,
 	}
 	ret_status = new_frame->status;
 
+	if ((new_frame->msg_len == 0) ||
+		(new_frame->msg_len > MSM_CPP_MAX_FRAME_LENGTH)) {
+		pr_err("%s:%d: Invalid frame len:%d\n", __func__,
+			__LINE__, new_frame->msg_len);
+		rc = -EINVAL;
+		goto ERROR1;
+	}
+
 	cpp_frame_msg = kzalloc(sizeof(uint32_t) * new_frame->msg_len,
 				GFP_KERNEL);
 	if (!cpp_frame_msg) {
@@ -1589,7 +1597,8 @@ long msm_cpp_subdev_ioctl(struct v4l2_subdev *sd,
 				cpp_dev->fw_name_bin = NULL;
 			}
 
-			if (ioctl_ptr->len == 0) {
+			if ((ioctl_ptr->len == 0) ||
+				(ioctl_ptr->len > MSM_CPP_MAX_FW_NAME_LEN)) {
 				pr_err("ioctl_ptr->len is 0\n");
 				mutex_unlock(&cpp_dev->mutex);
 				return -EINVAL;
