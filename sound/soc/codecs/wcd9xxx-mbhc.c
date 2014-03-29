@@ -189,7 +189,7 @@ static void wcd9xxx_mbhc_calc_thres(struct wcd9xxx_mbhc *mbhc);
 
 static bool wcd9xxx_mbhc_polling(struct wcd9xxx_mbhc *mbhc)
 {
-	return (snd_soc_read(mbhc->codec, WCD9XXX_A_CDC_MBHC_EN_CTL) & 0x1);
+	return snd_soc_read(mbhc->codec, WCD9XXX_A_CDC_MBHC_EN_CTL) & 0x1;
 }
 
 static void wcd9xxx_turn_onoff_override(struct wcd9xxx_mbhc *mbhc, bool on)
