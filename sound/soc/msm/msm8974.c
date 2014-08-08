@@ -150,15 +150,22 @@ defined(CONFIG_MACH_KS01KTT) || defined(CONFIG_MACH_KS01LGT)
 #endif
 	.insert_detect = true,
 	.swap_gnd_mic = NULL,
+<<<<<<< HEAD
 #if (defined(CONFIG_MACH_KLTE_KOR) || defined(CONFIG_MACH_KLTE_JPN) || defined(CONFIG_MACH_KACTIVELTE_DCM) || defined(CONFIG_MACH_CHAGALL_KDI) || defined(CONFIG_MACH_KLIMT_LTE_DCM)) && !defined(CONFIG_SEC_FACTORY)
 	.cs_enable_flags = (1 << MBHC_CS_ENABLE_POLLING),
 #else
 	.cs_enable_flags = 0,
 #endif
 	.do_recalibration = false,
+=======
+	.cs_enable_flags = (1 << MBHC_CS_ENABLE_POLLING |
+			    1 << MBHC_CS_ENABLE_INSERTION |
+			    1 << MBHC_CS_ENABLE_REMOVAL),
+	.do_recalibration = true,
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 	.use_vddio_meas = true,
 	.enable_anc_mic_detect = false,
-	.hw_jack_type = SIX_POLE_JACK,
+	.hw_jack_type = FOUR_POLE_JACK,
 };
 
 struct msm_auxpcm_gpio {
@@ -1778,6 +1785,7 @@ static bool msm8974_swap_gnd_mic(struct snd_soc_codec *codec)
 	int value = gpio_get_value_cansleep(pdata->us_euro_gpio);
 	pr_debug("%s: swap select switch %d to %d\n", __func__, value, !value);
 	gpio_set_value_cansleep(pdata->us_euro_gpio, !value);
+	msleep(50);
 	return true;
 }
 
@@ -2132,12 +2140,41 @@ void *def_taiko_mbhc_cal(void)
 	btn_low = wcd9xxx_mbhc_cal_btn_det_mp(btn_cfg, MBHC_BTN_DET_V_BTN_LOW);
 	btn_high = wcd9xxx_mbhc_cal_btn_det_mp(btn_cfg,
 					       MBHC_BTN_DET_V_BTN_HIGH);
+<<<<<<< HEAD
 	btn_low[0] = -50;
 	btn_high[0] = 160;
 	btn_low[1] = 161;
 	btn_high[1] = 330;
 	btn_low[2] = 331;
 	btn_high[2] = 730;
+=======
+#ifdef CONFIG_MACH_OPPO
+	btn_low[0] = -70;
+	btn_high[0] = 50;
+	btn_low[1] = 51;
+#else
+	btn_low[0] = -50;
+	btn_high[0] = 20;
+	btn_low[1] = 21;
+#endif
+	btn_high[1] = 61;
+	btn_low[2] = 62;
+	btn_high[2] = 104;
+	btn_low[3] = 105;
+	btn_high[3] = 148;
+	btn_low[4] = 149;
+	btn_high[4] = 189;
+	btn_low[5] = 190;
+	btn_high[5] = 228;
+	btn_low[6] = 229;
+	btn_high[6] = 269;
+	btn_low[7] = 270;
+#ifdef CONFIG_MACH_OPPO
+	btn_high[7] = 600;
+#else
+	btn_high[7] = 500;
+#endif
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 	n_ready = wcd9xxx_mbhc_cal_btn_det_mp(btn_cfg, MBHC_BTN_DET_N_READY);
 	n_ready[0] = 80;
 	n_ready[1] = 68;

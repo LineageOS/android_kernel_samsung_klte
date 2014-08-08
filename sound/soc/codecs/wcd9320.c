@@ -472,6 +472,12 @@ struct taiko_priv {
 	int (*machine_codec_event_cb)(struct snd_soc_codec *codec,
 			enum wcd9xxx_codec_event);
 
+<<<<<<< HEAD
+=======
+	struct regulator *hpmic_reg;
+	atomic_t hpmic_ref;
+
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 	/*
 	 * list used to save/restore registers at start and
 	 * end of impedance measurement
@@ -601,6 +607,49 @@ static int taiko_update_uhqa_mode(struct snd_soc_codec *codec, int path)
 	return ret;
 }
 
+<<<<<<< HEAD
+=======
+/**
+ * This regulator is needed to control the headset pin swap.
+ * The associated GPIO should be pulled up to set US mode
+ * or low for Euro/China.
+ */
+static int taiko_enable_hpmic_switch(struct snd_soc_codec *codec, bool enable)
+{
+	int ret = 0;
+	struct taiko_priv *taiko = snd_soc_codec_get_drvdata(codec);
+
+	if (!taiko->hpmic_reg)
+		return 0;
+
+	pr_debug("%s() enable: %d, ref count: %d",
+			__func__, enable, atomic_read(&taiko->hpmic_ref));
+
+	if (enable) {
+		if (atomic_inc_return(&taiko->hpmic_ref) == 1) {
+			ret = regulator_enable(taiko->hpmic_reg);
+			if (ret) {
+				pr_err("%s: Failed to enable hpmic switch %d\n",
+						__func__, ret);
+			}
+		}
+	} else {
+		if (atomic_read(&taiko->hpmic_ref) == 0)
+			return 0;
+
+		if (atomic_dec_return(&taiko->hpmic_ref) == 0) {
+			ret = regulator_disable(taiko->hpmic_reg);
+			if (ret) {
+				pr_err("%s: Failed to disable hpmic switch %d\n",
+						__func__, ret);
+			}
+		}
+	}
+
+	return ret;
+}
+
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 static int spkr_drv_wrnd_param_set(const char *val,
 				   const struct kernel_param *kp)
 {
@@ -7250,6 +7299,10 @@ static const struct wcd9xxx_mbhc_cb mbhc_cb = {
 	.get_cdc_type = taiko_get_cdc_type,
 	.setup_zdet = taiko_setup_zdet,
 	.compute_impedance = taiko_compute_impedance,
+<<<<<<< HEAD
+=======
+	.enable_hpmic_switch = taiko_enable_hpmic_switch,
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 };
 
 static const struct wcd9xxx_mbhc_intr cdc_intr_ids = {
@@ -7584,6 +7637,13 @@ static int taiko_codec_probe(struct snd_soc_codec *codec)
 		goto err_pdata;
 	}
 
+<<<<<<< HEAD
+=======
+	atomic_set(&taiko->hpmic_ref, 0);
+	taiko->hpmic_reg = taiko_codec_find_regulator(codec,
+							   WCD9XXX_VDD_HPMIC_SWITCH);
+
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 	taiko->spkdrv_reg = taiko_codec_find_regulator(codec,
 						       WCD9XXX_VDD_SPKDRV_NAME);
 
@@ -7731,6 +7791,10 @@ static int taiko_codec_remove(struct snd_soc_codec *codec)
 	/* cleanup resmgr */
 	wcd9xxx_resmgr_deinit(&taiko->resmgr);
 
+<<<<<<< HEAD
+=======
+	taiko->hpmic_reg = NULL;
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 	taiko->spkdrv_reg = NULL;
 
 	kfree(taiko);

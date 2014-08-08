@@ -100,8 +100,17 @@
  * Invalid voltage range for the detection
  * of plug type with current source
  */
+#ifdef CONFIG_MACH_OPPO
+#define WCD9XXX_CS_MEAS_INVALD_RANGE_LOW_MV 80
+#define WCD9XXX_CS_MEAS_INVALD_RANGE_HIGH_MV 165
+#else
 #define WCD9XXX_CS_MEAS_INVALD_RANGE_LOW_MV 160
+<<<<<<< HEAD
 #define WCD9XXX_CS_MEAS_INVALD_RANGE_HIGH_MV 170
+=======
+#define WCD9XXX_CS_MEAS_INVALD_RANGE_HIGH_MV 265
+#endif
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 
 /*
  * Threshold used to detect euro headset
@@ -123,7 +132,15 @@
 #define WCD9XXX_V_CS_HS_MAX 650
 #define WCD9XXX_V_CS_NO_MIC 0
 #define WCD9XXX_MB_MEAS_DELTA_MAX_MV 80
+<<<<<<< HEAD
 #define WCD9XXX_CS_MEAS_DELTA_MAX_MV 12
+=======
+#ifdef CONFIG_MACH_OPPO
+#define WCD9XXX_CS_MEAS_DELTA_MAX_MV 90
+#else
+#define WCD9XXX_CS_MEAS_DELTA_MAX_MV 12
+#endif
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 
 static int impedance_detect_en;
 module_param(impedance_detect_en, int,
@@ -188,6 +205,10 @@ static void wcd9xxx_get_z(struct wcd9xxx_mbhc *mbhc, s16 *dce_z, s16 *sta_z,
 			  bool norel);
 
 static void wcd9xxx_mbhc_calc_thres(struct wcd9xxx_mbhc *mbhc);
+
+static u16 wcd9xxx_codec_v_sta_dce(struct wcd9xxx_mbhc *mbhc,
+			enum meas_type dce, s16 vin_mv,
+			bool cs_enable);
 
 static bool wcd9xxx_mbhc_polling(struct wcd9xxx_mbhc *mbhc)
 {
@@ -855,6 +876,11 @@ static void wcd9xxx_report_plug(struct wcd9xxx_mbhc *mbhc, int insertion,
 			mbhc->micbias_enable_cb(mbhc->codec, false,
 						mbhc->mbhc_cfg->micbias);
 		}
+
+		/* turn off hpmic switch source */
+		if (mbhc->mbhc_cb && mbhc->mbhc_cb->enable_hpmic_switch)
+			mbhc->mbhc_cb->enable_hpmic_switch(mbhc->codec, false);
+
 		mbhc->zl = mbhc->zr = 0;
 		pr_info("%s: Reporting removal %d(%x)\n", __func__,
 			 jack_type, mbhc->hph_status);
@@ -863,6 +889,7 @@ static void wcd9xxx_report_plug(struct wcd9xxx_mbhc *mbhc, int insertion,
 		wcd9xxx_set_and_turnoff_hph_padac(mbhc);
 		hphrocp_off_report(mbhc, SND_JACK_OC_HPHR);
 		hphlocp_off_report(mbhc, SND_JACK_OC_HPHL);
+
 		mbhc->current_plug = PLUG_TYPE_NONE;
 		mbhc->polling_active = false;
 	} else {
@@ -921,7 +948,11 @@ static void wcd9xxx_report_plug(struct wcd9xxx_mbhc *mbhc, int insertion,
 		if (mbhc->impedance_detect && impedance_detect_en)
 			wcd9xxx_detect_impedance(mbhc, &mbhc->zl, &mbhc->zr);
 
+<<<<<<< HEAD
 		pr_info("%s: Reporting insertion %d(%x)\n", __func__,
+=======
+		pr_debug("%s: Reporting insertion %d(%x)\n", __func__,
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 			 jack_type, mbhc->hph_status);
 		wcd9xxx_jack_report(mbhc, &mbhc->headset_jack,
 				    mbhc->hph_status, WCD9XXX_JACK_MASK);
@@ -1162,6 +1193,7 @@ static short wcd9xxx_mbhc_setup_hs_polling(struct wcd9xxx_mbhc *mbhc,
 	}
 
 	btn_det = WCD9XXX_MBHC_CAL_BTN_DET_PTR(mbhc->mbhc_cfg->calibration);
+
 	/* Enable external voltage source to micbias if present */
 	if (mbhc->mbhc_cb && mbhc->mbhc_cb->enable_mb_source)
 		mbhc->mbhc_cb->enable_mb_source(codec, true, true);
@@ -3212,6 +3244,7 @@ static void wcd9xxx_swch_irq_handler(struct wcd9xxx_mbhc *mbhc)
 	insert = !wcd9xxx_swch_level_remove(mbhc);
 	pr_debug("%s: Current plug type %d, insert %d\n", __func__,
 		 mbhc->current_plug, insert);
+
 	if ((mbhc->current_plug == PLUG_TYPE_NONE) && insert) {
 		mbhc->lpi_enabled = false;
 		wmb();
@@ -3223,6 +3256,10 @@ static void wcd9xxx_swch_irq_handler(struct wcd9xxx_mbhc *mbhc)
 		    !(snd_soc_read(codec, WCD9XXX_A_MBHC_INSERT_DETECT) &
 				   (1 << 1)))
 			goto exit;
+
+		/* turn on hpmic switch source if needed */
+		if (mbhc->mbhc_cb && mbhc->mbhc_cb->enable_hpmic_switch)
+			mbhc->mbhc_cb->enable_hpmic_switch(mbhc->codec, true);
 
 		/* Disable Mic Bias pull down and HPH Switch to GND */
 		snd_soc_update_bits(codec, mbhc->mbhc_bias_regs.ctl_reg, 0x01,
@@ -4991,6 +5028,7 @@ int wcd9xxx_mbhc_init(struct wcd9xxx_mbhc *mbhc, struct wcd9xxx_resmgr *resmgr,
 			return ret;
 		}
 
+<<<<<<< HEAD
 		snd_jack_set_key(mbhc->button_jack.jack,
 					SND_JACK_BTN_0, KEY_MEDIA);
 		snd_jack_set_key(mbhc->button_jack.jack,
@@ -5017,6 +5055,36 @@ int wcd9xxx_mbhc_init(struct wcd9xxx_mbhc *mbhc, struct wcd9xxx_resmgr *resmgr,
 				dev_attr_state.attr.name);
 
 		dev_set_drvdata(earjack, mbhc);
+=======
+#ifdef CONFIG_MACH_OPPO
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+				       SND_JACK_BTN_1,
+				       KEY_MEDIA);
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+				       SND_JACK_BTN_2,
+				       KEY_VOLUMEUP);
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+				       SND_JACK_BTN_3,
+				       KEY_MEDIA);
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+					   SND_JACK_BTN_5,
+					   KEY_VOLUMEUP);
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+					   SND_JACK_BTN_6,
+					   KEY_VOLUMEUP);
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+				       SND_JACK_BTN_7,
+				       KEY_VOLUMEDOWN);
+#endif
+		ret = snd_jack_set_key(mbhc->button_jack.jack,
+				       SND_JACK_BTN_0,
+				       KEY_MEDIA);
+		if (ret) {
+			pr_err("%s: Failed to set code for btn-0\n",
+				__func__);
+			return ret;
+		}
+>>>>>>> 344be8b... asoc: msm8974: Properly configure MBHC
 
 		INIT_DELAYED_WORK(&mbhc->mbhc_firmware_dwork,
 				  wcd9xxx_mbhc_fw_read);
