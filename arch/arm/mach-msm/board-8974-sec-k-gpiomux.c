@@ -17,6 +17,7 @@
 #include <mach/gpio.h>
 #include <mach/gpiomux.h>
 #include <mach/socinfo.h>
+#include <linux/model-type.h>
 
 #ifdef CONFIG_FELICA
 #include <mach/klte_felica_gpio.h>
@@ -97,12 +98,47 @@ static struct msm_gpiomux_config gpio_nc_configs[] __initdata = {
 #endif
 #endif
 
-#if defined(CONFIG_MACH_KLTE_SPR)
+};
+
+static struct msm_gpiomux_config gpio_nc_configs_spr[] __initdata = {
+#if !defined(CONFIG_TDMB) && !defined(CONFIG_TDMB_MODULE)
+#if defined(CONFIG_MACH_KLTE_JPN)
+	GPIOMUX_SET_NC(73),
+#elif !defined(CONFIG_MACH_K3GDUOS_CTC)
+	GPIOMUX_SET_NC(18),
+	GPIOMUX_SET_NC(73),
+#endif
+#endif
+#if !defined(CONFIG_MACH_KLTE_CHN)
+#if defined(CONFIG_MACH_KLTE_KOR)
+	GPIOMUX_SET_NC(18),	/* Not use TDMB_DET pin, even though CONFIG_TDMB is enable */
+	GPIOMUX_SET_NC(104),
+	GPIOMUX_SET_NC(105),
+	GPIOMUX_SET_NC(111),
+	GPIOMUX_SET_NC(117),
+	GPIOMUX_SET_NC(118),
+#endif
+#if defined(CONFIG_MACH_KLTE_VZW)
+	GPIOMUX_SET_NC(105),
+#endif
+#if defined(CONFIG_MACH_K3GDUOS_CTC)
+	GPIOMUX_SET_NC(111),
+	GPIOMUX_SET_NC(114),
+	GPIOMUX_SET_NC(115),
+#endif
+	GPIOMUX_SET_NC(112),
+	GPIOMUX_SET_NC(113),
+	GPIOMUX_SET_NC(116),
+#if !defined(CONFIG_GSM_MODEM_SPRD6500)
+	GPIOMUX_SET_NC(119),
+	GPIOMUX_SET_NC(135),
+#endif
+#endif
+	//#if defined(CONFIG_MACH_KLTE_SPR)
 	GPIOMUX_SET_NC(110),
 	GPIOMUX_SET_NC(124),
 	GPIOMUX_SET_NC(125),
 	GPIOMUX_SET_NC(136),
-#endif
 };
 
 static struct msm_gpiomux_config gpio_rev05_nc_configs[] __initdata = {
@@ -2983,7 +3019,16 @@ void __init msm_8974_init_gpiomux(void)
 #endif
 
 	msm_gpiomux_install(hw_rev_configs, ARRAY_SIZE(hw_rev_configs));
-	msm_gpiomux_install(gpio_nc_configs, ARRAY_SIZE(gpio_nc_configs));
+	if (model_type == 1)
+	{
+		pr_alert("LOADED SPRINT VARIANT nc_configs.");
+		msm_gpiomux_install(gpio_nc_configs_spr, ARRAY_SIZE(gpio_nc_configs_spr));
+	}
+	else
+	{
+		pr_alert("LOADED NON-SPRINT VARIANT nc_configs.");
+		msm_gpiomux_install(gpio_nc_configs, ARRAY_SIZE(gpio_nc_configs));
+	}
 	if(system_rev >= 4)
 		msm_gpiomux_install(gpio_rev05_nc_configs,
 				    ARRAY_SIZE(gpio_rev05_nc_configs));
