@@ -17,6 +17,7 @@
  *
  */
 
+#include <linux/model-type.h>
 #include <linux/kernel.h>
 #include <linux/module.h>
 #include <linux/fs.h>
@@ -588,7 +589,11 @@ static struct i2c_driver bcm2079x_driver = {
 
 static int __init bcm2079x_dev_init(void)
 {
-	return i2c_add_driver(&bcm2079x_driver);
+	pr_info("Loading bcm2079x driver - %d\n", model_type);
+	if (model_type == 1 || model_type == 2)
+		return i2c_add_driver(&bcm2079x_driver);
+	else
+		return 0;
 }
 module_init(bcm2079x_dev_init);
 

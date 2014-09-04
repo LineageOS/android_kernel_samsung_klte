@@ -85,6 +85,9 @@
 #include <linux/secgpio_dvs.h>
 #endif
 
+#include <linux/model-type.h>
+unsigned int model_type = 0;
+
 static int kernel_init(void *);
 
 extern void init_IRQ(void);
@@ -608,6 +611,18 @@ asmlinkage void __init start_kernel(void)
 	page_alloc_init();
 
 	printk(KERN_NOTICE "Kernel command line: %s\n", boot_command_line);
+	if (strstr(boot_command_line, "bootloader=G900P"))
+	{
+		pr_alert("FOUND SPRINT VARIANT");
+		model_type = 1;
+	}
+	else if (strstr(boot_command_line, "bootloader=G900I"))
+	{
+		pr_alert("FOUND AUSTRALIAN VARIANT");
+		model_type = 2;
+	}
+	else
+		pr_alert("FOUND NON-SPRINT VARIANT");
 	parse_early_param();
 	parse_args("Booting kernel", static_command_line, __start___param,
 		   __stop___param - __start___param,
