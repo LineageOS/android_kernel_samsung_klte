@@ -122,6 +122,8 @@ struct irqaction {
 
 extern irqreturn_t no_action(int cpl, void *dev_id);
 
+extern void trigger_open_close_touchkey(bool is_on);
+
 #ifdef CONFIG_GENERIC_HARDIRQS
 extern int __must_check
 request_threaded_irq(unsigned int irq, irq_handler_t handler,

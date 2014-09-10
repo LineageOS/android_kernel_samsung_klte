@@ -41,6 +41,7 @@
 #include "issp_extern.h"
 #include <linux/mfd/pm8xxx/pm8921.h>
 
+struct input_dev *ginput_dev;
 #ifdef USE_OPEN_CLOSE
 static int cypress_input_open(struct input_dev *dev);
 static void cypress_input_close(struct input_dev *dev);
@@ -2508,6 +2509,7 @@ static int __devinit cypress_touchkey_probe(struct i2c_client *client,
 /*
    cypress_power_onoff(info, 0);
 */
+	ginput_dev = input_dev;
 	dev_info(&info->client->dev, "%s: done\n", __func__);
 	return 0;
 
@@ -2541,6 +2543,17 @@ err_input_dev_alloc:
 	return -ENXIO;
 err_mem_alloc:
 	return -ENOMEM;
+}
+
+void trigger_open_close_touchkey(bool is_on)
+{
+	if (ginput_dev != NULL)
+	{
+		if (is_on)
+			cypress_input_open(ginput_dev);
+		else
+			cypress_input_close(ginput_dev);
+	}
 }
 
 static int __devexit cypress_touchkey_remove(struct i2c_client *client)
