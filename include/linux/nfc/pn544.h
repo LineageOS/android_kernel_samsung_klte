@@ -20,8 +20,6 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 
-#ifndef _PN544_H_
-#define _PN544_H_
 
 #include <linux/i2c.h>
 
@@ -66,6 +64,15 @@
 #define PN544_LLC_MAX_DATA	(PN544_MSG_MAX_SIZE - 2)
 #define PN544_LLC_MAX_HCI_SIZE	(PN544_LLC_MAX_DATA - 2)
 
+/*
+ * PN544 power control via ioctl
+ * PN544_SET_PWR(0): power off
+ * PN544_SET_PWR(1): power on
+ * PN544_SET_PWR(2): reset and power on with firmware download enabled
+ */
+#define PN544_MAGIC	0xE9
+#define PN544_SET_PWR	_IOW(PN544_MAGIC, 0x01, unsigned int)
+
 struct pn544_llc_packet {
 	unsigned char length; /* of rest of packet */
 	unsigned char header;
@@ -83,7 +90,6 @@ struct pn544_fw_packet {
 	unsigned char data[PN544_MAX_FW_DATA];
 };
 
-#ifdef __KERNEL__
 /* board config */
 struct pn544_nfc_platform_data {
 	int (*request_resources) (struct i2c_client *client);
@@ -92,6 +98,3 @@ struct pn544_nfc_platform_data {
 	int (*test) (void);
 	void (*disable) (void);
 };
-#endif /* __KERNEL__ */
-
-#endif /* _PN544_H_ */
