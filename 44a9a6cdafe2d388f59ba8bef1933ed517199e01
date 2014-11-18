@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "faac7902_b8e82118",
+        "filename": "include/linux/nfc/pn544.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-11-18T22:58:41Z",
+      "side": 0,
+      "message": "You don\u0027t want to remove the guards.",
+      "revId": "44a9a6cdafe2d388f59ba8bef1933ed517199e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faac7902_98ed5d28",
+        "filename": "include/linux/nfc/pn544.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2014-11-18T22:58:41Z",
+      "side": 0,
+      "message": "You probably don\u0027t want to remove the kernel guard either.",
+      "revId": "44a9a6cdafe2d388f59ba8bef1933ed517199e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
