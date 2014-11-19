@@ -33,6 +33,24 @@
       "revId": "44a9a6cdafe2d388f59ba8bef1933ed517199e01",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "faac7902_862fbaa0",
+        "filename": "include/linux/nfc/pn544.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2814
+      },
+      "writtenOn": "2014-11-19T16:19:28Z",
+      "side": 0,
+      "message": "oh ok...i saw steve do it...i\u0027ll upload a new patch today",
+      "parentUuid": "faac7902_98ed5d28",
+      "revId": "44a9a6cdafe2d388f59ba8bef1933ed517199e01",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
