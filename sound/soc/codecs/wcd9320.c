@@ -1537,59 +1537,59 @@ static const struct snd_kcontrol_new taiko_2_x_analog_gain_controls[] = {
 			analog_gain),
 };
 
-#if defined(CONFIG_MACH_KLTE_JPN) || defined(CONFIG_MACH_KLTE_KOR)
 extern unsigned int system_rev;
-#endif
+extern unsigned int hardware_type;
 
 static int taiko_hph_impedance_get(struct snd_kcontrol *kcontrol,
 				   struct snd_ctl_elem_value *ucontrol)
 {
-#if defined(CONFIG_MACH_KLTE_KOR)
-	if (system_rev >= 13) {
-		uint32_t zl, zr;
-		bool hphr;
-		struct soc_multi_mixer_control *mc;
-		struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
-		struct taiko_priv *priv = snd_soc_codec_get_drvdata(codec);
+	if (hardware_type == 1) {
+		if (system_rev >= 13) {
+			uint32_t zl, zr;
+			bool hphr;
+			struct soc_multi_mixer_control *mc;
+			struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
+			struct taiko_priv *priv = snd_soc_codec_get_drvdata(codec);
 
-		mc = (struct soc_multi_mixer_control *)(kcontrol->private_value);
+			mc = (struct soc_multi_mixer_control *)(kcontrol->private_value);
 
-		hphr = mc->shift;
-		wcd9xxx_mbhc_get_impedance(&priv->mbhc, &zl, &zr);
-		pr_debug("%s: zl %u, zr %u\n", __func__, zl, zr);
-		ucontrol->value.integer.value[0] = hphr ? zr : zl;
-	}
-#elif defined(CONFIG_MACH_KLTE_JPN)
-	if (system_rev >= 11) {
-		uint32_t zl, zr;
-		bool hphr;
-		struct soc_multi_mixer_control *mc;
-		struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
-		struct taiko_priv *priv = snd_soc_codec_get_drvdata(codec);
+			hphr = mc->shift;
+			wcd9xxx_mbhc_get_impedance(&priv->mbhc, &zl, &zr);
+			pr_debug("%s: zl %u, zr %u\n", __func__, zl, zr);
+			ucontrol->value.integer.value[0] = hphr ? zr : zl;
+		}
+	} else if (hardware_type == 2) {
+		if (system_rev >= 11) {
+			uint32_t zl, zr;
+			bool hphr;
+			struct soc_multi_mixer_control *mc;
+			struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
+			struct taiko_priv *priv = snd_soc_codec_get_drvdata(codec);
 
-		mc = (struct soc_multi_mixer_control *)(kcontrol->private_value);
+			mc = (struct soc_multi_mixer_control *)(kcontrol->private_value);
 
-		hphr = mc->shift;
-		wcd9xxx_mbhc_get_impedance(&priv->mbhc, &zl, &zr);
-		pr_debug("%s: zl %u, zr %u\n", __func__, zl, zr);
-		ucontrol->value.integer.value[0] = hphr ? zr : zl;
-	}
-#else
+			hphr = mc->shift;
+			wcd9xxx_mbhc_get_impedance(&priv->mbhc, &zl, &zr);
+			pr_debug("%s: zl %u, zr %u\n", __func__, zl, zr);
+			ucontrol->value.integer.value[0] = hphr ? zr : zl;
+		}
+	} else {
 #if !defined(CONFIG_SAMSUNG_JACK)
-	uint32_t zl, zr;
-	bool hphr;
-	struct soc_multi_mixer_control *mc;
-	struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
-	struct taiko_priv *priv = snd_soc_codec_get_drvdata(codec);
+		uint32_t zl, zr;
+		bool hphr;
+		struct soc_multi_mixer_control *mc;
+		struct snd_soc_codec *codec = snd_kcontrol_chip(kcontrol);
+		struct taiko_priv *priv = snd_soc_codec_get_drvdata(codec);
 
-	mc = (struct soc_multi_mixer_control *)(kcontrol->private_value);
+		mc = (struct soc_multi_mixer_control *)(kcontrol->private_value);
 
-	hphr = mc->shift;
-	wcd9xxx_mbhc_get_impedance(&priv->mbhc, &zl, &zr);
-	pr_debug("%s: zl %u, zr %u\n", __func__, zl, zr);
-	ucontrol->value.integer.value[0] = hphr ? zr : zl;
+		hphr = mc->shift;
+		wcd9xxx_mbhc_get_impedance(&priv->mbhc, &zl, &zr);
+		pr_debug("%s: zl %u, zr %u\n", __func__, zl, zr);
+		ucontrol->value.integer.value[0] = hphr ? zr : zl;
 #endif
-#endif
+	}
+
 	ucontrol->value.integer.value[0] = 0;
 	return 0;
 }
@@ -7242,43 +7242,43 @@ static int taiko_codec_probe(struct snd_soc_codec *codec)
 	else
 		rco_clk_rate = TAIKO_MCLK_CLK_9P6MHZ;
 
-#if defined(CONFIG_MACH_KLTE_KOR)
-	if (system_rev >= 13) {
-		/* init and start mbhc */
-		ret = wcd9xxx_mbhc_init(&taiko->mbhc, &taiko->resmgr, codec,
-					taiko_enable_mbhc_micbias,
-					&mbhc_cb, &cdc_intr_ids,
-					rco_clk_rate, false);
-		if (ret) {
-			pr_err("%s: mbhc init failed %d\n", __func__, ret);
-			goto err_init;
+	if (hardware_type == 1) {
+		if (system_rev >= 13) {
+			/* init and start mbhc */
+			ret = wcd9xxx_mbhc_init(&taiko->mbhc, &taiko->resmgr, codec,
+						taiko_enable_mbhc_micbias,
+						&mbhc_cb, &cdc_intr_ids,
+						rco_clk_rate, false);
+			if (ret) {
+				pr_err("%s: mbhc init failed %d\n", __func__, ret);
+				goto err_init;
+			}
 		}
-	}
-#elif defined(CONFIG_MACH_KLTE_JPN)
-	if (system_rev >= 11) {
-		/* init and start mbhc */
-		ret = wcd9xxx_mbhc_init(&taiko->mbhc, &taiko->resmgr, codec,
-					taiko_enable_mbhc_micbias,
-					&mbhc_cb, &cdc_intr_ids,
-					rco_clk_rate, false);
-		if (ret) {
-			pr_err("%s: mbhc init failed %d\n", __func__, ret);
-			goto err_init;
+	} else if (hardware_type == 2) {
+		if (system_rev >= 11) {
+			/* init and start mbhc */
+			ret = wcd9xxx_mbhc_init(&taiko->mbhc, &taiko->resmgr, codec,
+						taiko_enable_mbhc_micbias,
+						&mbhc_cb, &cdc_intr_ids,
+						rco_clk_rate, false);
+			if (ret) {
+				pr_err("%s: mbhc init failed %d\n", __func__, ret);
+				goto err_init;
+			}
 		}
-	}
-#else
+	} else {
 #if !defined(CONFIG_SAMSUNG_JACK)
-	/* init and start mbhc */
-	ret = wcd9xxx_mbhc_init(&taiko->mbhc, &taiko->resmgr, codec,
-				taiko_enable_mbhc_micbias,
-				&mbhc_cb, &cdc_intr_ids,
-				rco_clk_rate, false);
-	if (ret) {
-		pr_err("%s: mbhc init failed %d\n", __func__, ret);
-		goto err_init;
+		/* init and start mbhc */
+		ret = wcd9xxx_mbhc_init(&taiko->mbhc, &taiko->resmgr, codec,
+					taiko_enable_mbhc_micbias,
+					&mbhc_cb, &cdc_intr_ids,
+					rco_clk_rate, false);
+		if (ret) {
+			pr_err("%s: mbhc init failed %d\n", __func__, ret);
+			goto err_init;
+		}
+#endif
 	}
-#endif
-#endif
 
 	taiko->codec = codec;
 	for (i = 0; i < COMPANDER_MAX; i++) {
@@ -7424,22 +7424,23 @@ static int taiko_codec_remove(struct snd_soc_codec *codec)
 
 	taiko_cleanup_irqs(taiko);
 
-#if defined(CONFIG_MACH_KLTE_KOR)
-	if (system_rev >= 13) {
-		/* cleanup MBHC */
-		wcd9xxx_mbhc_deinit(&taiko->mbhc);
-	}
-#elif defined(CONFIG_MACH_KLTE_JPN)
-	if (system_rev >= 11) {
-		/* cleanup MBHC */
-		wcd9xxx_mbhc_deinit(&taiko->mbhc);
-	}
-#else
+	if (hardware_type == 1) {
+		if (system_rev >= 13) {
+			/* cleanup MBHC */
+			wcd9xxx_mbhc_deinit(&taiko->mbhc);
+		}
+	} else if (hardware_type == 2) {
+		if (system_rev >= 11) {
+			/* cleanup MBHC */
+			wcd9xxx_mbhc_deinit(&taiko->mbhc);
+		}
+	} else {
 #if !defined(CONFIG_SAMSUNG_JACK)
-	/* cleanup MBHC */
-	wcd9xxx_mbhc_deinit(&taiko->mbhc);
+		/* cleanup MBHC */
+		wcd9xxx_mbhc_deinit(&taiko->mbhc);
 #endif
-#endif
+	}
+
 	/* cleanup resmgr */
 	wcd9xxx_resmgr_deinit(&taiko->resmgr);
 
