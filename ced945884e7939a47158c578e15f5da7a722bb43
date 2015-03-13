@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_5a55a51b",
+        "filename": "sound/soc/msm/msm8974.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3226,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T19:48:23Z",
+      "side": 0,
+      "message": "If you read the code you\u0027ll see that everything here is keyed off fsa_en_gpio, which is not set for EUR versions, meaning none of this code is actually executed anyway. This code already does the right thing if you just removed the ifdefs.",
+      "parentUuid": "7ac969e8_fa59f18f",
+      "revId": "ced945884e7939a47158c578e15f5da7a722bb43",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_cf39d543",
         "filename": "sound/soc/msm/msm8974.c",
         "patchSetId": 1

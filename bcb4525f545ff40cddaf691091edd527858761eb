@@ -126,6 +126,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_7a586157",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T19:48:23Z",
+      "side": 1,
+      "message": "Please look at the logic of the code as a whole. The intent is to have (hw rev 1 \u0026\u0026 system_rev \u003e\u003d 13) || (hw rev 2 \u0026\u0026 system_rev \u003e\u003d 11) act as if CONFIG_SAMSUNG_JACK is not set, whereas it is for the EUR defconfig.",
+      "parentUuid": "7ac969e8_7a81818f",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_8f2fddf5",
         "filename": "sound/soc/codecs/wcd9320.c",
         "patchSetId": 1
