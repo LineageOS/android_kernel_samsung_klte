@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac969e8_4fefa5b0",
+        "filename": "drivers/misc/sec_jack.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 953,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T06:40:43Z",
+      "side": 1,
+      "message": "Would prefer the logic was merged into singular if statements to preserve indentation and reduce duplication.",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac969e8_af2a99e5",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T06:40:43Z",
+      "side": 1,
+      "message": "May be better to merge the if statements to avoid such a large indentation change.\n\nif ((hardware_type \u003d\u003d 1 \u0026\u0026 system_rev \u003e\u003d 13) || (hardware_type \u003d\u003d 2 \u0026\u0026 system_rev \u003e\u003d 11)) { ... }",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac969e8_8f2fddf5",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 7245,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T06:40:43Z",
+      "side": 1,
+      "message": "Same comment as above.",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac969e8_ef34914b",
+        "filename": "sound/soc/msm/msm8974.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1807,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T06:40:43Z",
+      "side": 1,
+      "message": "Same comment as previous files.",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7ac969e8_0f3c8d2e",
+        "filename": "sound/soc/msm/msm8974.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1857,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-03-13T06:40:43Z",
+      "side": 1,
+      "message": "Consider merging the logic here as well.",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
