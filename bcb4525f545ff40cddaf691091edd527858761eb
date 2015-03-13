@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_5ab6453e",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 7434
+      },
+      "writtenOn": "2015-03-13T11:37:53Z",
+      "side": 1,
+      "message": "If we do that, it would cause trouble with KOR, JPN models with system_rev \u003c 12(10)\nIf KOR, JPN\u0027s system_rev is lower than 13(11), it still shouldn\u0027t follow kltexx code.",
+      "parentUuid": "7ac969e8_af2a99e5",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_8f2fddf5",
         "filename": "sound/soc/codecs/wcd9320.c",
         "patchSetId": 1
