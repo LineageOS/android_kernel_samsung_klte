@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_fa59f18f",
+        "filename": "sound/soc/msm/msm8974.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 3226,
+      "author": {
+        "id": 7434
+      },
+      "writtenOn": "2015-03-13T14:50:25Z",
+      "side": 0,
+      "message": "This part works with drivers/misc/sec_jack.c which has a KOR, JPN if cases as the same as this part.\n\nI would consider this as a consistency-preserved patch.\n\nAnd those DT nodes used in this block also exists on KLTEEUR dts files, meaning we should remove those when we want to not use hardware_type if statements.\n\nI\u0027m out of my computer access right now but if those DT nodes are used on other parts of the source code, it\u0027ll be the wrong thing to just remove those, which by the way, I think it will since those nodes exist on KLTEEUR anyways and I don\u0027t think Samsung is stupid enough to leave nodes that are doing nothing.",
+      "parentUuid": "7ac969e8_ba8e5925",
+      "revId": "ced945884e7939a47158c578e15f5da7a722bb43",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_cf39d543",
         "filename": "sound/soc/msm/msm8974.c",
         "patchSetId": 1

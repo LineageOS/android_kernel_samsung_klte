@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_1a6a0d1b",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 7434
+      },
+      "writtenOn": "2015-03-13T14:50:25Z",
+      "side": 1,
+      "message": "Samsung intended to skip this entire \"#if\" block if,\ndefined(KLTEKOR) \u0026\u0026 (system_rev \u003c 13),\ndefined(KLTEJPN) \u0026\u0026 (system_rev \u003c 11).\n\nWith my patch, by separating if statements to 2 with variant check and system_rev check, it follows the same behavior Samsung has originally intended.\n\nAs I said, if we modify this patch as per your idea,\nKLTEKOR with system_rev \u003c 13\nor\nKLTEJPN with system_rev \u003c 11\nwill follow KLTEEUR routine, which is a behavior Samsung has NOT intended.\n\nThe same theory applies to every other \"if\" patches across this patch.",
+      "parentUuid": "7ac969e8_5a73e54d",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_8f2fddf5",
         "filename": "sound/soc/codecs/wcd9320.c",
         "patchSetId": 1
