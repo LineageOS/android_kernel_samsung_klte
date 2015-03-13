@@ -108,6 +108,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_7a81818f",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 7434
+      },
+      "writtenOn": "2015-03-13T19:06:58Z",
+      "side": 1,
+      "message": "There are codes all over the place from 8 to 13.\nWe can\u0027t just predict this and hardcode it.\n\nMy 2 ks01lte unit(another S800 series) has 2 system_rev.\nOld one is 10 and the new one is 15.\n\nI don\u0027t know if you knows this but there are a major difference between different system_rev that I know of.\nSome system_rev uses Samsung NAND, some uses Toshiba NAND.",
+      "parentUuid": "7ac969e8_3a7709d6",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_8f2fddf5",
         "filename": "sound/soc/codecs/wcd9320.c",
         "patchSetId": 1
