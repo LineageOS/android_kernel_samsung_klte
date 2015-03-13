@@ -90,6 +90,24 @@
     },
     {
       "key": {
+        "uuid": "7ac969e8_3a7709d6",
+        "filename": "sound/soc/codecs/wcd9320.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 1546,
+      "author": {
+        "id": 883
+      },
+      "writtenOn": "2015-03-13T18:50:17Z",
+      "side": 1,
+      "message": "I am pretty sure final revision are greater than the selected values. they only used that for device prototype.",
+      "parentUuid": "7ac969e8_1a6a0d1b",
+      "revId": "bcb4525f545ff40cddaf691091edd527858761eb",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7ac969e8_8f2fddf5",
         "filename": "sound/soc/codecs/wcd9320.c",
         "patchSetId": 1
