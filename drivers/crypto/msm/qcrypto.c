@@ -455,7 +455,6 @@ static void qcrypto_ce_set_bus(struct crypto_engine *pengine,
 	int ret = 0;
 
 	if (high_bw_req) {
-		pm_stay_awake(&pengine->pdev->dev);
 		ret = qce_enable_clk(pengine->qce);
 		if (ret) {
 			pr_err("%s Unable enable clk\n", __func__);
@@ -469,10 +468,7 @@ static void qcrypto_ce_set_bus(struct crypto_engine *pengine,
 			qce_disable_clk(pengine->qce);
 			goto clk_err;
 		}
-
-
 	} else {
-
 		ret = msm_bus_scale_client_update_request(
 				pengine->bus_scale_handle, 0);
 		if (ret) {
@@ -490,11 +486,8 @@ static void qcrypto_ce_set_bus(struct crypto_engine *pengine,
 						__func__);
 			goto clk_err;
 		}
-		pm_relax(&pengine->pdev->dev);
 	}
-	return;
 clk_err:
-	pm_relax(&pengine->pdev->dev);
 	return;
 
 }
