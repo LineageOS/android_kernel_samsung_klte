@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff0f0b1f_cf911df4",
+        "filename": "arch/arm/mach-msm/Makefile.boot",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-07-15T06:25:55Z",
+      "side": 1,
+      "message": "You may need to update the mkbootimg script to search for this too.",
+      "range": {
+        "startLine": 84,
+        "startChar": 57,
+        "endLine": 84,
+        "endChar": 65
+      },
+      "revId": "796df1144c362abe45680be6289289acea683733",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
