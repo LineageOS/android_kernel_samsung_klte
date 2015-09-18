@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff346bd7_660a568b",
+        "filename": "arch/arm/configs/msm8974_sec_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-09-18T22:30:47Z",
+      "side": 0,
+      "message": "I think you still need to set a default.",
+      "revId": "f0d4ed0af0df0127b7d5b1276369798690b43e66",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
