@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f287b81_b7762a3e",
+        "filename": "arch/arm/configs/msm8974_sec_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 4550
+      },
+      "writtenOn": "2015-10-06T22:52:17Z",
+      "side": 1,
+      "message": "This should be removed, the kconfig entry is removed",
+      "revId": "fb46b0181938b91709b5a8941b0b9b04fe10001b",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
