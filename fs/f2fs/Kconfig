@@ -19,10 +19,10 @@ config F2FS_STAT_FS
 	depends on F2FS_FS && DEBUG_FS
 	default y
 	help
-	  /sys/debug/f2fs/ contains information about all the partitions
+	  /sys/kernel/debug/f2fs/ contains information about all the partitions
 	  mounted as f2fs. Each file shows the whole f2fs information.
 
-	  /sys/debug/f2fs/status includes:
+	  /sys/kernel/debug/f2fs/status includes:
 	    - major filesystem information managed by f2fs currently
 	    - average SIT information about whole segments
 	    - current memory footprint consumed by f2fs.
@@ -71,3 +71,13 @@ config F2FS_CHECK_FS
 	  Enables BUG_ONs which check the filesystem consistency in runtime.
 
 	  If you want to improve the performance, say N.
+
+config F2FS_IO_TRACE
+	bool "F2FS IO tracer"
+	depends on F2FS_FS
+	depends on FUNCTION_TRACER
+	help
+	  F2FS IO trace is based on a function trace, which gathers process
+	  information and block IO patterns in the filesystem level.
+
+	  If unsure, say N.
