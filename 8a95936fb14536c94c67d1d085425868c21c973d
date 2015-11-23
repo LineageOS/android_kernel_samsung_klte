@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f4e5783_3a0ea5e5",
+        "filename": "arch/arm/configs/msm8974_sec_defconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 541,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2015-11-23T03:45:13Z",
+      "side": 1,
+      "message": "These values are set by default when actually building the kernel.",
+      "revId": "8a95936fb14536c94c67d1d085425868c21c973d",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
