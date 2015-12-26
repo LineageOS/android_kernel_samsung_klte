@@ -762,6 +762,7 @@ int mdss_mdp_pipe_program_pixel_extn(struct mdss_mdp_pipe *pipe);
 				(mfd->mdp.private1))->wb)
 
 int mdss_mdp_ctl_reset(struct mdss_mdp_ctl *ctl);
+int mdss_mdp_user_pcc_config(struct mdp_pcc_cfg_data *config);
 #if defined(CONFIG_FB_MSM_MIPI_SAMSUNG_OCTA_CMD_FULL_HD_PT_PANEL)
 void mdss_dsi_debug_check_te(struct mdss_panel_data *pdata);
 #endif
