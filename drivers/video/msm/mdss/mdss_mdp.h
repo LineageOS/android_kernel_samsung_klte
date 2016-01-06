@@ -767,4 +767,6 @@ void mdss_dsi_debug_check_te(struct mdss_panel_data *pdata);
 #endif
 void dumpreg(void);
 void mdp5_dump_regs(void);
+int mdss_mdp_user_pcc_config(struct mdp_pcc_cfg_data *config);
+
 #endif /* MDSS_MDP_H */
