@@ -331,6 +331,8 @@ struct mdss_mdp_pp_tear_check {
 	u32 refx100;
 };
 
+struct mdss_livedisplay_ctx;
+
 struct mdss_panel_info {
 	u32 xres;
 	u32 yres;
@@ -399,6 +401,9 @@ struct mdss_panel_info {
 	struct edp_panel_info edp;
 	u8 (*alpm_event) (u8 flag);
 	void (*alpm_gamma_read) (void);
+	
+	struct mdss_livedisplay_ctx *livedisplay;
+	
 };
 
 #if defined(CONFIG_FB_MSM_MDSS_S6E8AA0A_HD_PANEL)
