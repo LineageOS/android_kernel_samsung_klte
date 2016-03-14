@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dfbec78f_d272fa7c",
+        "filename": "drivers/net/wireless/bcmdhd/wl_cfg80211.c",
+        "patchSetId": 1
+      },
+      "lineNbr": 9371,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-03-14T19:00:04Z",
+      "side": 1,
+      "message": "Isn\u0027t this meant to replace the below statement? Right now it\u0027s duplicating it.",
+      "revId": "ccdacbf15508c7d147eb8fba7c1402ddcc81a9bc",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
