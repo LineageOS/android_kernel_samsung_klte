@@ -735,7 +735,7 @@ static struct mount *clone_mnt(struct mount *old, struct dentry *root,
 		mnt->mnt_group_id = old->mnt_group_id;
 
 	if ((flag & CL_MAKE_SHARED) && !mnt->mnt_group_id) {
-		err = mnt_alloc_group_id(mnt);
+		int err = mnt_alloc_group_id(mnt);
 		if (err)
 			goto out_free;
 	}
@@ -2416,9 +2416,9 @@ SYSCALL_DEFINE5(mount, char __user *, dev_name, char __user *, dir_name,
 		char __user *, type, unsigned long, flags, void __user *, data)
 {
 	int ret;
-	char *kernel_type;
-	char *kernel_dir;
-	char *kernel_dev;
+	char *kernel_type = NULL;
+	char *kernel_dir = NULL;
+	char *kernel_dev = NULL;
 	unsigned long data_page;
 
 	ret = copy_mount_string(type, &kernel_type);
@@ -2727,7 +2727,7 @@ static int mntns_install(struct nsproxy *nsproxy, void *ns)
 	struct path root;
 
 	if (!ns_capable(mnt_ns->user_ns, CAP_SYS_ADMIN) ||
-	    !nsown_capable(CAP_SYS_CHROOT))
+		!nsown_capable(CAP_SYS_CHROOT))
 		return -EINVAL;
 
 	if (fs->users != 1)
