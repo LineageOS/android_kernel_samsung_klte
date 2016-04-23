@@ -47,7 +47,6 @@ static struct uid_entry *find_uid_entry(uid_t uid)
 {
 	struct uid_entry *uid_entry;
 	struct hlist_node *node;
-
 	hash_for_each_possible(hash_table, uid_entry, node, hash, uid) {
 		if (uid_entry->uid == uid)
 			return uid_entry;
@@ -178,8 +177,8 @@ static ssize_t uid_remove_write(struct file *file,
 	mutex_lock(&uid_lock);
 
 	for (; uid_start <= uid_end; uid_start++) {
-		hash_for_each_possible_safe(hash_table, uid_entry, node, tmp,
-							hash, uid_start) {
+		hash_for_each_possible_safe(hash_table, uid_entry, node,
+						   tmp, hash, uid_start) {
 			hash_del(&uid_entry->hash);
 			kfree(uid_entry);
 		}
