@@ -55,6 +55,14 @@
 #else
 #define _ZONE ZONE_NORMAL
 #endif
+#ifdef CONFIG_SEC_OOM_KILLER
+#define MULTIPLE_OOM_KILLER
+#define OOM_COUNT_READ
+#endif
+
+#ifdef MULTIPLE_OOM_KILLER
+#define OOM_DEPTH 5
+#endif
 
 static uint32_t lowmem_debug_level = 1;
 static int lowmem_adj[6] = {
@@ -366,6 +374,10 @@ void tune_lmk_param(int *other_free, int *other_file, struct shrink_control *sc)
 			     "%d\n", *other_free, *other_file);
 	}
 }
+#if defined(CONFIG_ZSWAP)
+extern atomic_t zswap_pool_pages;
+extern atomic_t zswap_stored_pages;
+#endif
 
 static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 {
@@ -383,6 +395,17 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 	int other_free;
 	int other_file;
 	unsigned long nr_to_scan = sc->nr_to_scan;
+#ifdef CONFIG_SEC_DEBUG_LMK_MEMINFO
+	static DEFINE_RATELIMIT_STATE(lmk_rs, DEFAULT_RATELIMIT_INTERVAL, 1);
+#endif
+	struct reclaim_state *reclaim_state = current->reclaim_state;
+#if defined(CONFIG_CMA_PAGE_COUNTING)
+	unsigned long nr_cma_inactive_file;
+	unsigned long nr_cma_active_file;
+	unsigned long cma_page_ratio;
+	bool is_active_high;
+	bool flag = 0;
+#endif
 
 	if (nr_to_scan > 0) {
 		if (mutex_lock_interruptible(&scan_mutex) < 0)
@@ -470,6 +493,14 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			continue;
 		}
 		tasksize = get_mm_rss(p->mm);
+#if defined(CONFIG_ZSWAP)
+		if (atomic_read(&zswap_stored_pages)) {
+			lowmem_print(3, "shown tasksize : %d\n", tasksize);
+			tasksize += atomic_read(&zswap_pool_pages) * get_mm_counter(p->mm, MM_SWAPENTS)
+				/ atomic_read(&zswap_stored_pages);
+			lowmem_print(3, "real tasksize : %d\n", tasksize);
+		}
+#endif
 		task_unlock(p);
 		if (tasksize <= 0)
 			continue;
@@ -541,6 +572,8 @@ static int lowmem_shrink(struct shrinker *s, struct shrink_control *sc)
 			other_free, other_file, selected_oom_score_adj);
 	} else {
 		trace_almk_shrink(1, ret, other_free, other_file, 0);
+		if(reclaim_state)
+			reclaim_state->reclaimed_slab = selected_tasksize;
 		rcu_read_unlock();
 	}
 
