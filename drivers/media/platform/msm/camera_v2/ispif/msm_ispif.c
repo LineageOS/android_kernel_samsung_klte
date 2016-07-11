@@ -1086,13 +1086,12 @@ static int msm_ispif_set_vfe_info(struct ispif_device *ispif,
 	if (!vfe_info || (vfe_info->num_vfe <= 0) ||
 		((uint32_t)(vfe_info->num_vfe) > ispif->hw_num_isps)) {
 		pr_err("Invalid VFE info: %p %d\n", vfe_info,
-			   (vfe_info ? vfe_info->num_vfe:0));
+			(vfe_info ? vfe_info->num_vfe:0));
 		return -EINVAL;
 	}
 
 	memcpy(&ispif->vfe_info, vfe_info, sizeof(struct msm_ispif_vfe_info));
-	if (ispif->vfe_info.num_vfe > ispif->hw_num_isps)
-		return -EINVAL;
+
 	return 0;
 }
 
