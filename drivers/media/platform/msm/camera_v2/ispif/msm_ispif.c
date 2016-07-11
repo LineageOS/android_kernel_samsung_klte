@@ -382,11 +382,9 @@ static void msm_ispif_enable_intf_cids(struct ispif_device *ispif,
 
 	data = msm_camera_io_r(ispif->base + intf_addr);
 	if (enable)
-		data |=  (uint32_t) cid_mask;
+		data |= (uint32_t)cid_mask;
 	else
-		data &= ~((uint32_t) cid_mask);
-	pr_err("%s: <DBG01> vfe_intf %u intftype %u intf_addr %x data %x\n", __func__,
-	       vfe_intf, intftype, intf_addr, data);
+		data &= ~((uint32_t)cid_mask);
 	msm_camera_io_w_mb(data, ispif->base + intf_addr);
 }
 
