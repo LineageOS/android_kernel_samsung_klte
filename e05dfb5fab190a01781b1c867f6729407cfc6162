@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_7ac5f33b",
+        "filename": "drivers/motor/tspdrv.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-19T10:21:21Z",
+      "side": 1,
+      "message": "To minimise diffs, I usually don\u0027t format lines that I otherwise wouldn\u0027t modify.",
+      "revId": "e05dfb5fab190a01781b1c867f6729407cfc6162",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_9ac22f33",
+        "filename": "drivers/motor/tspdrv.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-19T10:21:21Z",
+      "side": 1,
+      "message": "Should actually be double tab indentations (same for the other line breaks)",
+      "revId": "e05dfb5fab190a01781b1c867f6729407cfc6162",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fa7e38b_3add3b14",
+        "filename": "drivers/motor/tspdrv.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-19T10:21:21Z",
+      "side": 1,
+      "message": "Is (ret \u003c 0) or (ret) the correct check for failures?",
+      "revId": "e05dfb5fab190a01781b1c867f6729407cfc6162",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
