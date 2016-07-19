@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3fa7e38b_da7ae722",
+        "filename": "drivers/motor/tspdrv.c",
+        "patchSetId": 2
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 7880
+      },
+      "writtenOn": "2016-07-19T10:07:02Z",
+      "side": 1,
+      "message": "80 char limit; same goes for the rest of the lines.",
+      "revId": "96663282549a7b2805b5dc89e9962316d84ea9ee",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
