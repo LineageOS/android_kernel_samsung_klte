@@ -135,15 +135,6 @@ int touch_is_pressed;
 #define MODU_VERSION 0x02
 #define MAX_FW_PATH 255
 
-/* Touch booster */
-#ifdef CONFIG_SEC_DVFS
-#define TOUCH_BOOSTER				1
-#define TOUCH_BOOSTER_OFF_TIME		100
-#define TOUCH_BOOSTER_CHG_TIME		200
-#else
-#define TOUCH_BOOSTER			0
-#endif 
-
 /* touchkey info */
 #ifdef SEC_TOUCHKEY_INFO
 #define RMI_ADDR_UNIV_CMD						0xA0

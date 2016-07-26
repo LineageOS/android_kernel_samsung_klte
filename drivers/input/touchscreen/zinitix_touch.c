@@ -21,7 +21,6 @@
 #define USE_OPEN_CLOSE
 
 #define SUPPORTED_TOUCH_KEY
-//#define TOUCH_BOOSTER
 #include <linux/module.h>
 #include <linux/input.h>
 #include <linux/i2c.h>
@@ -55,17 +54,6 @@
 #include <zinitix_touch.h>
 #include <linux/input/mt.h>
 #include <linux/of_gpio.h>
-
-#ifdef CONFIG_SEC_DVFS
-#include <linux/cpufreq.h>
-#define TOUCH_BOOSTER_DVFS
-
-#define DVFS_STAGE_TRIPLE       3
-
-#define DVFS_STAGE_DUAL         2
-#define DVFS_STAGE_SINGLE       1
-#define DVFS_STAGE_NONE         0
-#endif
 
 #if defined(TOUCH_BOOSTER)
 #include <linux/pm_qos.h>

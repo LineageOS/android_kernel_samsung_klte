@@ -18,7 +18,6 @@ extern int poweroff_charging;
 #endif
 
 #define TC300K_DEVICE	"sec_touchkey" //"tc300k"
-#define TSP_BOOSTER 
 #ifdef TSP_BOOSTER
 #include <linux/cpufreq.h>
 

@@ -45,7 +45,6 @@
 #define DEFAULT_DISABLE	0
 
 /* feature define */
-#define TSP_BOOSTER	/* DVFS feature : TOUCH BOOSTER */
 #define USE_OPEN_CLOSE	/* Use when CONFIG_HAS_EARLYSUSPEND is disabled */
 #define REPORT_2D_W
 #define REDUCE_I2C_DATA_LENGTH
@@ -59,7 +58,6 @@
 #define USE_RECENT_TOUCHKEY
 #define PROXIMITY
 #define EDGE_SWIPE
-#define TKEY_BOOSTER
 #define SYNAPTICS_DEVICE_NAME	"T320"
 #define USE_PALM_REJECTION_KERNEL
 

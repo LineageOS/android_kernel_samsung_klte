@@ -85,12 +85,6 @@ enum {
 #define ISP_MAX_FW_SIZE		(0x1F00 * 4)
 #define ISP_IC_INFO_ADDR	0x1F00
 
-#ifdef CONFIG_SEC_DVFS
-#define TOUCH_BOOSTER			1
-#define TOUCH_BOOSTER_OFF_TIME	100
-#define TOUCH_BOOSTER_CHG_TIME	200
-#endif
-
 #define COVER_OPEN 0
 #define COVER_CLOSED 3
 
