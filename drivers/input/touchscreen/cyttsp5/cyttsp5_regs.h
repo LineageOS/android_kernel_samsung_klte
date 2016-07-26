@@ -238,11 +238,8 @@
 /* FW RAM parameters */
 #define CY_RAM_ID_TOUCHMODE_ENABLED	0xD0 /* Enable proximity */
 
-#ifdef CONFIG_SEC_DVFS
-#define TSP_BOOSTER
-#else
 #undef TSP_BOOSTER
-#endif
+
 /* abs signal capabilities offsets in the frameworks array */
 enum cyttsp5_sig_caps {
 	CY_SIGNAL_OST,

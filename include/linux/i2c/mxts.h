@@ -299,7 +299,6 @@ enum {
 
 /************** Feature **************/
 #define TSP_PATCH				1
-#define TSP_BOOSTER				1
 #define MXT_TKEY_BOOSTER			1
 #define TSP_SEC_FACTORY			1
 #define TSP_INFORM_CHARGER		1

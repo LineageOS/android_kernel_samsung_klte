@@ -46,17 +46,6 @@
 #include <asm/mach-types.h>
 #include <linux/delay.h>
 
-#ifdef CONFIG_SEC_DVFS
-#include <linux/cpufreq.h>
-#define TOUCH_BOOSTER_DVFS
-
-#define DVFS_STAGE_TRIPLE       3
-
-#define DVFS_STAGE_DUAL         2
-#define DVFS_STAGE_SINGLE       1
-#define DVFS_STAGE_NONE         0
-#endif
-
 /* #include <mach/dev.h> */
 
 #include <linux/regulator/consumer.h>

@@ -49,20 +49,6 @@
 
 #define USE_OPEN_CLOSE
 
-//#ifdef CONFIG_SEC_DVFS
-#include <linux/cpufreq.h>
-#define TOUCH_BOOSTER_DVFS
-
-#ifdef CONFIG_SEC_S_PROJECT
-#define DVFS_STAGE_NINTH	9
-#define DVFS_STAGE_PENTA	5
-#endif
-#define DVFS_STAGE_TRIPLE       3
-#define DVFS_STAGE_DUAL         2
-#define DVFS_STAGE_SINGLE       1
-#define DVFS_STAGE_NONE         0
-//#endif
-
 #ifdef TOUCH_BOOSTER_DVFS
 #define TOUCH_BOOSTER_OFF_TIME	500
 #define TOUCH_BOOSTER_CHG_TIME	300//130

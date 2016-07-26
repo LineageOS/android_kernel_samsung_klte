@@ -411,17 +411,6 @@ enum BOOST_LEVEL {
 #undef WACOM_USE_QUERY_DATA
 #endif
 
-
-//#ifdef CONFIG_SEC_DVFS
-#include <linux/cpufreq.h>
-#define WACOM_BOOSTER_DVFS
-#define DVFS_STAGE_TRIPLE       3
-#define DVFS_STAGE_DUAL         2
-#define DVFS_STAGE_SINGLE       1
-#define DVFS_STAGE_NONE         0
-//#endif
-
-
 /*Parameters for wacom own features*/
 struct wacom_features {
 	int x_max;

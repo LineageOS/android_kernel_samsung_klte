@@ -26,7 +26,6 @@
 #define SUPPORTED_TOUCH_KEY 0
 #endif
 
-#define TSP_BOOSTER
 
 #include <linux/module.h>
 #include <linux/input.h>

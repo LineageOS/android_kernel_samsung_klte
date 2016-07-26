@@ -45,7 +45,6 @@
 #define DEFAULT_DISABLE	0
 
 /* feature define */
-#define TSP_BOOSTER	/* DVFS feature : TOUCH BOOSTER */
 #define USE_OPEN_CLOSE	/* Use when CONFIG_HAS_EARLYSUSPEND is disabled */
 #define REPORT_2D_W
 #define REDUCE_I2C_DATA_LENGTH

@@ -451,11 +451,8 @@ enum cyttsp4_cmd_status {
 #define CY_RAM_ID_BTN_THRSH_MUT			0xA0
 #define CY_RAM_ID_TOUCHMODE_ENABLED		0xD0 /* Enable proximity */
 
-#ifdef CONFIG_SEC_DVFS
-#define TSP_BOOSTER
-#else
 #undef TSP_BOOSTER
-#endif
+
 /* TOUCH PARSE */
 /* abs signal capabilities offsets in the frameworks array */
 enum cyttsp4_sig_caps {
