@@ -725,11 +725,14 @@ static int __init cpufreq_stats_init(void)
 	if (ret)
 		return ret;
 
+	create_all_freq_table();
+
 	ret = cpufreq_register_notifier(&notifier_trans_block,
 				CPUFREQ_TRANSITION_NOTIFIER);
 	if (ret) {
 		cpufreq_unregister_notifier(&notifier_policy_block,
 				CPUFREQ_POLICY_NOTIFIER);
+		free_all_freq_table();
 		return ret;
 	}
 

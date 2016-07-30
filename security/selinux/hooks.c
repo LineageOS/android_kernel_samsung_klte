@@ -431,7 +431,7 @@ static int sb_finish_set_opts(struct super_block *sb)
 	    !strcmp(sb->s_type->name, "pstore") ||
 	    !strcmp(sb->s_type->name, "debugfs") ||
 	    !strcmp(sb->s_type->name, "rootfs"))
-		sbsec->flags |= SE_SBLABELSUPP;
+            sbsec->flags |= SE_SBLABELSUPP;
 
 	/* Initialize the root inode. */
 	rc = inode_doinit_with_dentry(root_inode, root);
@@ -447,6 +447,7 @@ next_inode:
 				list_entry(sbsec->isec_head.next,
 					   struct inode_security_struct, list);
 		struct inode *inode = isec->inode;
+		list_del_init(&isec->list);
 		spin_unlock(&sbsec->isec_lock);
 		inode = igrab(inode);
 		if (inode) {
@@ -455,7 +456,6 @@ next_inode:
 			iput(inode);
 		}
 		spin_lock(&sbsec->isec_lock);
-		list_del_init(&isec->list);
 		goto next_inode;
 	}
 	spin_unlock(&sbsec->isec_lock);
