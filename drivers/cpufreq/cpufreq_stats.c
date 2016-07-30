@@ -509,6 +509,19 @@ static void create_all_freq_table(void)
 	return;
 }
 
+
+static void free_all_freq_table(void)
+{
+	if (all_freq_table) {
+		if (all_freq_table->freq_table) {
+			kfree(all_freq_table->freq_table);
+			all_freq_table->freq_table = NULL;
+		}
+		kfree(all_freq_table);
+		all_freq_table = NULL;
+	}
+}
+
 static void add_all_freq_table(unsigned int freq)
 {
 	unsigned int size;
@@ -725,11 +738,14 @@ static int __init cpufreq_stats_init(void)
 	if (ret)
 		return ret;
 
+	create_all_freq_table();
+
 	ret = cpufreq_register_notifier(&notifier_trans_block,
 				CPUFREQ_TRANSITION_NOTIFIER);
 	if (ret) {
 		cpufreq_unregister_notifier(&notifier_policy_block,
 				CPUFREQ_POLICY_NOTIFIER);
+		free_all_freq_table();
 		return ret;
 	}
 
