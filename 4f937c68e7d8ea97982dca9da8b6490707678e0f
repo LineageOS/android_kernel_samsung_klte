@@ -40,6 +40,24 @@
       "revId": "4f937c68e7d8ea97982dca9da8b6490707678e0f",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff2e2bb8_fc7ce9b6",
+        "filename": "drivers/fingerprint/vfs61xx.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-10-01T22:15:42Z",
+      "side": 1,
+      "message": "I don\u0027t even understand how that makes any sense. Why can\u0027t you use grep or something similar if you\u0027re worried about that?",
+      "parentUuid": "ff2e2bb8_bc7261e2",
+      "revId": "4f937c68e7d8ea97982dca9da8b6490707678e0f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
