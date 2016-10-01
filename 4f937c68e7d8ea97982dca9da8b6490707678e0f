@@ -22,6 +22,24 @@
       "revId": "4f937c68e7d8ea97982dca9da8b6490707678e0f",
       "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff2e2bb8_bc7261e2",
+        "filename": "drivers/fingerprint/vfs61xx.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 11801
+      },
+      "writtenOn": "2016-10-01T22:13:52Z",
+      "side": 1,
+      "message": "It\u0027s a safeguard in case we missed it being set somewhere",
+      "parentUuid": "ff2e2bb8_9c6cbd09",
+      "revId": "4f937c68e7d8ea97982dca9da8b6490707678e0f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
     }
   ]
 }
