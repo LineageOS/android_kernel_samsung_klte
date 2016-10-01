@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff2e2bb8_9c6cbd09",
+        "filename": "drivers/fingerprint/vfs61xx.h",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2936
+      },
+      "writtenOn": "2016-10-01T22:11:20Z",
+      "side": 1,
+      "message": "This is so weird, why didn\u0027t you just remove it instead of making it such that setting FEATURE_SPI_WAKELOCK unsets FEATURE_SPI_WAKELOCK? This is ridiculously unintuitive.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 6
+      },
+      "revId": "4f937c68e7d8ea97982dca9da8b6490707678e0f",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
