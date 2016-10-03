@@ -705,6 +705,12 @@ static int set_config(struct usb_composite_dev *cdev,
 				union power_supply_propval value;
 				int main_type = POWER_SUPPLY_TYPE_USB_DCP;
 
+				if (!f->ss_descriptors) {
+					pr_err("%s(): No SS desc for function:%s\n",
+								__func__, f->name);
+					return -EINVAL;
+				}
+			
 				descriptors = f->ss_descriptors;
 				if (!psy) {
 					pr_err("%s: fail to get %s psy\n", __func__, PSY_CHG_NAME);
@@ -1340,7 +1346,7 @@ composite_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *ctrl)
 		 * upon set config#1. Call set_alt for non-zero
 		 * alternate setting.
 		 */
-		if (!w_value && cdev->config) {
+		if (!w_value && cdev->config && !f->get_alt) {
 			value = 0;
 			break;
 		}
