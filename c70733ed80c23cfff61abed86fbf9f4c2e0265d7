@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f681702_4774be99",
+        "filename": "arch/arm/configs/msm8974pro_sec_klte_eur_defconfig",
+        "patchSetId": 3
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 15173
+      },
+      "writtenOn": "2016-12-18T16:55:59Z",
+      "side": 1,
+      "message": "Need to ensure this gets into all of the variants, either by copying same into each defconfig or move this into msm8974_sec_defconfig. This can be a follow-up change if you don\u0027t want to roll it into this one.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 25
+      },
+      "revId": "c70733ed80c23cfff61abed86fbf9f4c2e0265d7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5f681702_c75f2e0c",
+        "filename": "firmware/ssp_stm.fw.ihex",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 15173
+      },
+      "writtenOn": "2016-12-18T16:55:59Z",
+      "side": 1,
+      "message": "New sensorhub fw? Wonder if it will affect the mpu6500 performance any (derpy rotation)...",
+      "revId": "c70733ed80c23cfff61abed86fbf9f4c2e0265d7",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
