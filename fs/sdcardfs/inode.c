@@ -773,6 +773,7 @@ static int sdcardfs_setattr(struct dentry *dentry, struct iattr *ia)
 	if (current->mm)
 		down_write(&current->mm->mmap_sem);
 	if (ia->ia_valid & ATTR_SIZE) {
+		loff_t oldsize;
 		err = inode_newsize_ok(inode, ia->ia_size);
 		if (err) {
 			if (current->mm)
