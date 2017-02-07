@@ -875,8 +875,8 @@ int kgsl_mmu_map_global(struct kgsl_pagetable *pagetable,
 
 	/*global mappings must have the same gpu address in all pagetables*/
 	if (gpuaddr && gpuaddr != memdesc->gpuaddr) {
-		KGSL_CORE_ERR("pt %pK addr mismatch phys %pa gpu 0x%0x 0x%08x",
-		     pagetable, &memdesc->physaddr, gpuaddr, memdesc->gpuaddr);
+		KGSL_CORE_ERR("pt %pK addr mismatch gpu 0x%0x 0x%08x",
+		     pagetable, gpuaddr, memdesc->gpuaddr);
 		goto error_unmap;
 	}
 	return result;
