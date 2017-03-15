@@ -162,7 +162,7 @@ struct dentry *msm_vidc_debugfs_init_core(struct msm_vidc_core *core,
 	char debugfs_name[MAX_DEBUGFS_NAME];
 	mutex_init(&dbg_buf.lock);
 	if (!core) {
-		dprintk(VIDC_ERR, "Invalid params, core: %p\n", core);
+		dprintk(VIDC_ERR, "Invalid params, core: %pK\n", core);
 		goto failed_create_dir;
 	}
 

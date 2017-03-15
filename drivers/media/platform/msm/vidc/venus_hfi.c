@@ -2120,7 +2120,7 @@ static int venus_hfi_get_q_size(struct venus_hfi_device *dev,
 static inline void venus_hfi_clk_gating_on(struct venus_hfi_device *device)
 {
 	if (!device) {
-		dprintk(VIDC_ERR, "Invalid params: %p\n", device);
+		dprintk(VIDC_ERR, "Invalid params: %pK\n", device);
 		return;
 	}
 	if (device->clk_state != ENABLED_PREPARED) {
@@ -3831,7 +3831,7 @@ static int venus_hfi_get_info(void *dev, enum dev_info info)
 	int rc = 0;
 	struct venus_hfi_device *device = dev;
 	if (!device) {
-		dprintk(VIDC_ERR, "%s Invalid parameter: %p\n",
+		dprintk(VIDC_ERR, "%s Invalid parameter: %pK\n",
 				__func__, device);
 		return -EINVAL;
 	}
