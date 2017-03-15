@@ -1,4 +1,4 @@
-/* Copyright (c) 2011-2015, The Linux Foundation. All rights reserved.
+/* Copyright (c) 2011-2016, The Linux Foundation. All rights reserved.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 2 and
@@ -183,7 +183,7 @@ int32_t msm_camera_cci_i2c_write_seq(struct msm_camera_i2c_client *client,
 	}
 
 	S_I2C_DBG("%s reg addr = 0x%x num bytes: %d\n",
-		__func__, addr, num_byte);
+		  __func__, addr, num_byte);
 
 	reg_conf_tbl = kzalloc(num_byte *
 		(sizeof(struct msm_camera_i2c_reg_array)), GFP_KERNEL);

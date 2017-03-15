@@ -1965,6 +1965,11 @@ static ssize_t cmd_store(struct device *dev, struct device_attribute *attr,
 	}
 #endif
 
+	if ((int)count >= CMD_STR_LEN) {
+		dev_err(&rmi4_data->i2c_client->dev, "%s: cmd size overflow![%d]\n", __func__, (int)count);
+		return -EINVAL;
+	}
+
 	if (data->cmd_is_running == true) {
 		dev_err(&rmi4_data->i2c_client->dev, "%s: Still servicing previous command. Skip cmd :%s\n",
 			 __func__, buf);
@@ -2099,7 +2104,7 @@ static ssize_t cmd_list_show(struct device *dev,
 	snprintf(buffer, 30, "++factory command list++\n");
 	while (strncmp(ft_cmds[ii].cmd_name, "not_support_cmd", 16) != 0) {
 		snprintf(buffer_name, CMD_STR_LEN, "%s\n", ft_cmds[ii].cmd_name);
-		strcat(buffer, buffer_name);
+		strncat(buffer, buffer_name, strlen(buffer_name));
 		ii++;
 	}
 

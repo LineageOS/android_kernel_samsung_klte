@@ -332,7 +332,7 @@ found:
  */
 
 static int unix_dgram_peer_wake_relay(wait_queue_t *q, unsigned mode, int flags,
-				      void *key)
+		void *key)
 {
 	struct unix_sock *u;
 	wait_queue_head_t *u_sleep;
@@ -340,7 +340,7 @@ static int unix_dgram_peer_wake_relay(wait_queue_t *q, unsigned mode, int flags,
 	u = container_of(q, struct unix_sock, peer_wake);
 
 	__remove_wait_queue(&unix_sk(u->peer_wake.private)->peer_wait,
-			    q);
+			q);
 	u->peer_wake.private = NULL;
 
 	/* relaying can only happen while the wq still exists */
@@ -373,7 +373,7 @@ static int unix_dgram_peer_wake_connect(struct sock *sk, struct sock *other)
 }
 
 static void unix_dgram_peer_wake_disconnect(struct sock *sk,
-					    struct sock *other)
+		struct sock *other)
 {
 	struct unix_sock *u, *u_other;
 
@@ -390,13 +390,13 @@ static void unix_dgram_peer_wake_disconnect(struct sock *sk,
 }
 
 static void unix_dgram_peer_wake_disconnect_wakeup(struct sock *sk,
-						   struct sock *other)
+		struct sock *other)
 {
 	unix_dgram_peer_wake_disconnect(sk, other);
 	wake_up_interruptible_poll(sk_sleep(sk),
-				   POLLOUT |
-				   POLLWRNORM |
-				   POLLWRBAND);
+			POLLOUT |
+			POLLWRNORM |
+			POLLWRBAND);
 }
 
 /* preconditions:
