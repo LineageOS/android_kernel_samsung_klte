@@ -1614,6 +1614,11 @@ static ssize_t store_cmd(struct device *dev, struct device_attribute
 	int param_cnt = 0;
 	int ret;
 
+	if (strlen(buf) >= TSP_CMD_STR_LEN) {
+		dev_err(&client->dev, "%s: cmd length is over(%s,%d)!!\n", __func__, buf, (int)strlen(buf));
+		return -EINVAL;
+	}
+
 	if (fdata->cmd_is_running == true) {
 		dev_err(&client->dev, "tsp_cmd: other cmd is running.\n");
 		goto err_out;
@@ -1677,7 +1682,7 @@ static ssize_t store_cmd(struct device *dev, struct device_attribute
 				param_cnt++;
 			}
 			cur++;
-		} while (cur - buf <= len);
+		} while ((cur - buf <= len) && (param_cnt < TSP_CMD_PARAM_NUM));
 	}
 
 	dev_info(&client->dev, "cmd = %s\n", tsp_cmd_ptr->cmd_name);
@@ -1745,13 +1750,13 @@ static ssize_t cmd_list_show(struct device *dev,
 		struct device_attribute *attr, char *buf)
 {
 	int ii = 0;
-	char buffer[728];
+	char buffer[896];
 	char buffer_name[32];
 
 	snprintf(buffer, 30, "++factory command list++\n");
 	while (strncmp(tsp_cmds[ii].cmd_name, "not_support_cmd", 16) != 0) {
 		snprintf(buffer_name, 32, "%s\n", tsp_cmds[ii].cmd_name);
-		strcat(buffer, buffer_name);
+		strncat(buffer, buffer_name, (int)strlen(buffer_name));
 		ii++;
 	}
 

@@ -914,7 +914,7 @@ struct f54_control {
 
 #define CMD_STR_LEN 32
 #define CMD_PARAM_NUM 8
-#define CMD_RESULT_STR_LEN 512
+#define CMD_RESULT_STR_LEN 896
 #define FT_CMD(name, func) .cmd_name = name, .cmd_func = func
 #define F12_CTRL9_ADDR 0X0011
 #define F34_CTRL0_0_ADDR 0x0007
@@ -1971,6 +1971,12 @@ static ssize_t cmd_store(struct device *dev, struct device_attribute *attr,
 		return count;
 	}
 
+	if ((int)count >= CMD_STR_LEN) {
+		dev_info(&rmi4_data->i2c_client->dev, "%s: cmd size overflow![%d]\n",
+				__func__, (int)count);
+		return count;
+	}
+
 	mutex_lock(&data->cmd_lock);
 	data->cmd_is_running = true;
 	mutex_unlock(&data->cmd_lock);
@@ -2026,7 +2032,7 @@ static ssize_t cmd_store(struct device *dev, struct device_attribute *attr,
 				start = pos + 1;
 			}
 			pos++;
-		} while (pos - buf <= length);
+		} while ((pos - buf <= length) && (param_cnt < CMD_PARAM_NUM));
 	}
 
 	dev_info(&rmi4_data->i2c_client->dev, "%s: Command = %s\n",
@@ -2099,7 +2105,7 @@ static ssize_t cmd_list_show(struct device *dev,
 	snprintf(buffer, 30, "++factory command list++\n");
 	while (strncmp(ft_cmds[ii].cmd_name, "not_support_cmd", 16) != 0) {
 		snprintf(buffer_name, CMD_STR_LEN, "%s\n", ft_cmds[ii].cmd_name);
-		strcat(buffer, buffer_name);
+		strncat(buffer, buffer_name, strlen(buffer_name));
 		ii++;
 	}
 

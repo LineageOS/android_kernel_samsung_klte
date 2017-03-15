@@ -1032,7 +1032,7 @@ static int cpp_open_node(struct v4l2_subdev *sd, struct v4l2_subdev_fh *fh)
 		return -ENODEV;
 	}
 
-	CPP_DBG("open %d %p\n", i, &fh->vfh);
+	CPP_DBG("open %d %pK\n", i, &fh->vfh);
 	cpp_dev->cpp_open_cnt++;
 	if (cpp_dev->cpp_open_cnt == 1) {
 		cpp_init_hardware(cpp_dev);
@@ -1219,7 +1219,7 @@ static void msm_cpp_do_timeout_work(struct work_struct *work)
 	del_timer_idx = 1 - del_timer_idx;
 
 	if (!work || !this_frame) {
-		pr_err("Invalid work:%p, this_frame:%p, del_idx:%d\n",
+		pr_err("Invalid work:%pK, this_frame:%p, del_idx:%d\n",
 		       work, this_frame, del_timer_idx);
 		mutex_unlock(&cpp_timers[0].data.cpp_dev->mutex);
 		return;

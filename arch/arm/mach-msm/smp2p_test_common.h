@@ -36,8 +36,7 @@
 	int a_tmp = (a); \
 	int b_tmp = (b); \
 	if (!((a_tmp)cmp(b_tmp))) { \
-		seq_printf(s, \
-			"%s:%d Fail: " #a "(%d) " #cmp " " #b "(%d)\n", \
+		seq_printf(s, "%s:%d Fail: " #a "(%d) " #cmp " " #b "(%d)\n", \
 				__func__, __LINE__, \
 				a_tmp, b_tmp); \
 		failed = 1; \
