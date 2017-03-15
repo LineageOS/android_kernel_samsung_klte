@@ -116,6 +116,7 @@ struct mdss_data_type {
 	bool batfet_required;
 	struct regulator *batfet;
 	u32 max_mdp_clk_rate;
+	struct mdss_util_intf *mdss_util;
 
 	struct platform_device *pdev;
 	char __iomem *mdp_base;
@@ -229,6 +230,13 @@ struct mdss_hw {
 	void *ptr;
 	irqreturn_t (*irq_handler)(int irq, void *ptr);
 };
+
+struct mdss_util_intf {
+	void (*iommu_lock)(void);
+	void (*iommu_unlock)(void);
+};
+
+struct mdss_util_intf *mdss_get_util_intf(void);
 
 int mdss_register_irq(struct mdss_hw *hw);
 void mdss_enable_irq(struct mdss_hw *hw);
