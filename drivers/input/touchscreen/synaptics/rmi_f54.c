@@ -2339,7 +2339,7 @@ static ssize_t cmd_store(struct device *dev, struct device_attribute *attr,
 				start = pos + 1;
 			}
 			pos++;
-		} while (pos - buf <= length);
+		} while ((pos - buf <= length) && (param_cnt < CMD_PARAM_NUM));
 	}
 
 	dev_info(&rmi4_data->i2c_client->dev, "%s: Command = %s\n",
@@ -2412,7 +2412,7 @@ static ssize_t cmd_list_show(struct device *dev,
 	snprintf(buffer, 30, "++factory command list++\n");
 	while (strncmp(ft_cmds[ii].cmd_name, "not_support_cmd", 16) != 0) {
 		snprintf(buffer_name, CMD_STR_LEN, "%s\n", ft_cmds[ii].cmd_name);
-		strcat(buffer, buffer_name);
+		strncat(buffer, buffer_name, strlen(buffer_name));
 		ii++;
 		if (strlen(buffer) > (CMD_RESULT_STR_LEN - CMD_STR_LEN)) {
 			dev_info(&f54->rmi4_data->i2c_client->dev,
