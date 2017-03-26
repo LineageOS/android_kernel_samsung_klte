@@ -400,7 +400,7 @@ static struct configfs_subsystem sdcardfs_packages_subsys = {
 	},
 };
 
-static int configfs_sdcardfs_init(void)
+static int __init configfs_sdcardfs_init(void)
 {
 	int ret;
 	struct configfs_subsystem *subsys = &sdcardfs_packages_subsys;
@@ -416,7 +416,7 @@ static int configfs_sdcardfs_init(void)
 	return ret;
 }
 
-static void configfs_sdcardfs_exit(void)
+static void __exit configfs_sdcardfs_exit(void)
 {
 	configfs_unregister_subsystem(&sdcardfs_packages_subsys);
 }
