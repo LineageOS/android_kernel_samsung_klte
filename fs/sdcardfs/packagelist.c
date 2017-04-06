@@ -181,9 +181,10 @@ static void free_packagelist_entry(struct hashtable_entry *entry)
 static void remove_packagelist_entry_locked(const char *key)
 {
 	struct hashtable_entry *hash_cur;
+	struct hlist_node *h_n;
 	unsigned int hash = str_hash(key);
 
-	hash_for_each_possible_rcu(package_to_appid, hash_cur, hlist, hash) {
+	hash_for_each_possible_rcu(package_to_appid, hash_cur, h_n, hlist, hash) {
 		if (!strcasecmp(key, hash_cur->key)) {
 			hash_del_rcu(&hash_cur->hlist);
 			synchronize_rcu();
@@ -211,13 +212,13 @@ static void packagelist_destroy(void)
 	int i;
 
 	mutex_lock(&sdcardfs_super_list_lock);
-	hash_for_each_rcu(package_to_appid, i, h_t, h_n, hash_cur, hlist) {
+	hash_for_each_rcu(package_to_appid, i, h_t, hash_cur, hlist) {
 		hash_del_rcu(&hash_cur->hlist);
 		hlist_add_head(&hash_cur->hlist, &free_list);
 
 	}
 	synchronize_rcu();
-	hlist_for_each_entry_safe(hash_cur, h_t, &free_list, hlist)
+	hlist_for_each_entry_safe(hash_cur, h_t, h_n, &free_list, hlist)
 		free_packagelist_entry(hash_cur);
 	mutex_unlock(&sdcardfs_super_list_lock);
 	printk(KERN_INFO "sdcardfs: destroyed packagelist pkgld\n");
@@ -333,12 +334,13 @@ static ssize_t packages_attr_show(struct config_item *item,
 					 char *page)
 {
 	struct hashtable_entry *hash_cur;
+	struct hlist_node *h_t;
 	int i;
 	int count = 0, written = 0;
 	const char errormsg[] = "<truncated>\n";
 
 	rcu_read_lock();
-	hash_for_each_rcu(package_to_appid, i, hash_cur, hlist) {
+	hash_for_each_rcu(package_to_appid, i, h_t, hash_cur, hlist) {
 		written = scnprintf(page + count, PAGE_SIZE - sizeof(errormsg) - count, "%s %d\n",
 					(const char *)hash_cur->key, atomic_read(&hash_cur->value));
 		if (count + written == PAGE_SIZE - sizeof(errormsg)) {
