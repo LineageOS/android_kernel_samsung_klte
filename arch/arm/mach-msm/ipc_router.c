@@ -2172,6 +2172,9 @@ int msm_ipc_router_register_server(struct msm_ipc_port *port_ptr,
 
 	if (!port_ptr || !name)
 		return -EINVAL;
+	
+	if (port_ptr->type != CLIENT_PORT)
+		return -EINVAL;
 
 	if (port_ptr->type != CLIENT_PORT)
 		return -EINVAL;
