@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da87b5cf_99d1d4fd",
+        "filename": "arch/arm/mach-msm/ipc_router.c",
+        "patchSetId": 3
+      },
+      "lineNbr": 2181,
+      "author": {
+        "id": 15402
+      },
+      "writtenOn": "2017-06-28T17:40:51Z",
+      "side": 1,
+      "message": "This expression is duplicated now",
+      "range": {
+        "startLine": 2176,
+        "startChar": 0,
+        "endLine": 2181,
+        "endChar": 0
+      },
+      "revId": "e031ff4ff779ac185c98be695b9af7519869bbe4",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
