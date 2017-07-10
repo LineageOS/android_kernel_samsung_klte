@@ -1566,8 +1566,6 @@ static struct page *__alloc_nonmovable_userpage(struct page *page,
 	return alloc_page(GFP_HIGHUSER);
 }
 
-static inline int stack_guard_page(struct vm_area_struct *vma, unsigned long addr);
-
 static bool __need_migrate_cma_page(struct page *page,
 				struct vm_area_struct *vma,
 				unsigned long start, unsigned int flags)
